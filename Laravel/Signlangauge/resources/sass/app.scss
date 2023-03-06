@@ -1,8 +1,72 @@
-// Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
 
-// Variables
-@import 'variables';
+$opensans: 'Open Sans', sans-serif;
+
+.font-main{
+    font-family: $opensans;
+}
+
+$colors: (
+    "main": #37427D,
+    "bg": #202561,
+    "lite": #7683BE,
+    "normal": #2E3972,
+    "darkGray": #1F1F1F,
+);
+
+$theme-colors: (
+    "main": #37427D,
+    "bg": #202561,
+    "lite": #7683BE,
+    "normal": #2E3972,
+    "darkGray": #1F1F1F,
+);
+
+$percentages: (
+    "1": 1rem,
+    "2": 2rem,
+    "5": 5rem,
+    "7": 7rem,
+    "10": 10rem,
+);
+
+$sizes: (
+    "6": 14px,
+    '5': 24px,
+    '4': 32px,
+    '3': 48px,
+    '2': 64px,
+    '1': 96px
+);
+
+@each $size, $key in $sizes{
+    .fnt-#{$size}{
+        font-size: $key;
+    }
+}
+
+@each $color, $key in $colors {
+    .bg-#{$color}{
+        background-color: $key;
+    }
+    .border-#{$color}{
+        border-color: $key;
+    }
+}
+
+@each $percent, $key in $percentages{
+    .lineH-#{$percent}{
+        line-height: $key;
+    }
+}
+
+.round-bottom{
+    border-radius: 0px 0px 10px 10px
+}
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+
