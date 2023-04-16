@@ -1,0 +1,105 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+}
+
+@import "../../node_modules/bootstrap/scss/functions";
+
+$danger : #DC756E;
+$black : #181818;
+
+$font-sizes: (
+  1: 96px,
+  2: 64px,
+  3: 48px,
+  4: 32px,
+  5: 26px,
+  6: 14px,
+  7: 12px,
+);
+
+
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+
+$pri: #37427D;
+$backg: #202561;
+$bglite: #7683BE;
+$gray: #1F1F1F;
+
+$customColors: (
+    'bg': $pri,
+    'bg-d': $backg,
+    'bg-l': $bglite,
+    'gray': $gray,
+);
+
+$theme-colors: map-merge($theme-colors , $customColors );
+
+$sizes:(
+    '10': 10%,
+    '25': 25%,
+    '50':50%,
+    '75':75%,
+    '100':100%
+);
+
+@each $size,$val in $sizes{
+    .imgs-#{$size}{
+        width: #{$val};
+    }
+    .is-#{$size}{
+        width: #{$val};
+    }
+
+}
+
+$widths:(
+    '1': 10vw,
+    '2': 25vw,
+    '3':50vw,
+    '4':75vw,
+    '5':100vw
+);
+
+@each $width,$val in $widths{
+    .vws-#{$width}{
+        width: #{$val};
+        max-width: 15rem;
+    }
+}
+
+.width-fc{
+    width: fit-content;
+};
+
+$radii: (
+    '1': 1rem,
+    '2': 2rem,
+    '3': 3rem
+);
+@each $radi,$val in $radii{
+    .radius-btm-#{$radi}{
+        border-radius: 0px 0px #{$val} #{$val};
+    }
+    .radius-top-#{$radi}{
+        border-radius: #{$val} #{$val} 0px 0px;
+    }
+}
+
+.ff{
+    font-family: 'Open Sans', sans-serif;
+}
+
+@import '../../node_modules/bootstrap/scss/bootstrap';
