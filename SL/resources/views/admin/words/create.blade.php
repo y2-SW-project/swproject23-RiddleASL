@@ -14,6 +14,10 @@
                         <label for="info">Info</label>
                         <input type="text" class="form-control rounded" name='info' id="info" placeholder="Please enter a info...">
                     </div>
+                    <div class="col-6">
+                        <label for="info">Validate</label>
+                        <input type="checkbox" name="show" id="show">
+                    </div>
                     <button type="submit" class="btn btn-outline-bg-l mt-3">Submit</button>
                 </form>
             </div>

@@ -20,7 +20,10 @@
                 <label for="word">Extra</label>
                 <input type="text" class="form-control rounded" name='info' id="info" value="{{ $word->info }}">
             </div>
-
+            <div class="col-6 py-2">
+                <label for="show">Validate</label>
+                <input type="checkbox" name="show" id="show">
+            </div>
             <button type="submit" class="btn btn-outline-primary">Update</button>
         </form>
     </div>

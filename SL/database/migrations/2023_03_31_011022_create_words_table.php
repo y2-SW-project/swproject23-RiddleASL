@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('word');
             $table->string('info')->nullable();
+            $table->integer('show')->default(0);
             $table->timestamps();
         });
     }

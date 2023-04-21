@@ -44,6 +44,10 @@ class WordController extends Controller
     public function store(Request $request)
     {
         $id = Auth::id();
+        $show = 0;
+        if(!empty($request->input('show'))){
+            $show = 1;
+        }
 
         $request->validate([
             'word'=>['required'],
@@ -52,7 +56,8 @@ class WordController extends Controller
 
         Word::create([
             'word' => $request->input('word'),
-            'info' => $request->input('info')
+            'info' => $request->input('info'),
+            'show' => $show
         ]);
 
         $word_id = Word::orderBy('id', 'desc')->first()->id;
@@ -66,18 +71,24 @@ class WordController extends Controller
      */
     public function show(Word $word)
     {
-        $return = DB::table('word_sign')->where('word_id',$word->id)->get();
-        $get = [];
 
-        $user_id = DB::table('word_user')->where('word_id', $word->id)->pluck('user_id');
-        $user = DB::table('users')->where('id', $user_id[0])->get();
 
-        foreach ($return as $item) {
-            array_push($get, (DB::table('signs')->where('id',$item->sign_id)->get())[0]);
+        if($word-> show == 1){
+            $return = DB::table('word_sign')->where('word_id',$word->id)->get();
+            $get = [];
+    
+            $user_id = DB::table('word_user')->where('word_id', $word->id)->pluck('user_id');
+            $user = DB::table('users')->where('id', $user_id[0])->get();
+    
+            foreach ($return as $item) {
+                array_push($get, (DB::table('signs')->where('id',$item->sign_id)->get())[0]);
+            }
+    
+            $signs = array_values($get);
+            return view('admin.words.show', ['return' => $return, 'signs'=>$signs, 'word' => $word, 'user'=>$user[0]]);
+        } else {
+            abort('403');
         }
-
-        $signs = array_values($get);
-        return view('admin.words.show', ['return' => $return, 'signs'=>$signs, 'word' => $word, 'user'=>$user[0]]);
     }
 
     /**
@@ -101,14 +112,20 @@ class WordController extends Controller
     {
         if(Auth::check()){
             if(Auth::user()->isAdmin){
+                $show = 1;
+                if(!empty($request->input('show'))){
+                    $show = 1;
+                }
+
                 $request->validate([
                     'word'=>'required',
-                    'info'=>'nullable'
+                    'info'=>'nullable',
                 ]);
         
                 $word->update([
                     'word' => $request->input('word'),
-                    'info' => $request->input('info')
+                    'info' => $request->input('info'),
+                    'show' => $show
                 ]);
         
                 

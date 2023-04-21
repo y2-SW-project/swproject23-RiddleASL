@@ -11,13 +11,6 @@
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <a href="{{ route('words.index') }}"><button class="btn btn-outline-bg-l fs-5 vws-1 text-white">Words</button></a>
         </div>
-        @if (Auth::check())
-            @if (auth()->user()->isAdmin)
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <a href="{{ route('admin.users.index') }}"><button class="btn btn-outline-bg-l fs-5 vws-1 text-white">Users</button></a>
-                </div>
-            @endif
-        @endif
     </ul>
 
     <!-- Right Side Of Navbar -->
