@@ -35,7 +35,15 @@ class WordController extends Controller
      */
     public function create()
     {
-        return view('admin.words.create');
+        if(Auth::check()){
+            if(Auth::user()->isAdmin){
+                return view('admin.words.create');
+            } else {
+                abort('403');
+            }
+        }
+
+
     }
 
     /**
