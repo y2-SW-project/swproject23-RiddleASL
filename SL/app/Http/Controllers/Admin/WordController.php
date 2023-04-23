@@ -43,27 +43,36 @@ class WordController extends Controller
      */
     public function store(Request $request)
     {
-        $id = Auth::id();
-        $show = 0;
-        if(!empty($request->input('show'))){
-            $show = 1;
+
+        if(Auth::check()){
+            if(Auth::user()->isAdmin){
+                $id = Auth::id();
+                $show = 0;
+                if(!empty($request->input('show'))){
+                    $show = 1;
+                }
+        
+                $request->validate([
+                    'word'=>['required'],
+                    'info' => ['nullable']
+                ]);
+        
+                Word::create([
+                    'word' => $request->input('word'),
+                    'info' => $request->input('info'),
+                    'show' => $show
+                ]);
+        
+                $word_id = Word::orderBy('id', 'desc')->first()->id;
+                DB::insert('insert into word_user values (?, ?, ?)', [null, $word_id, $id]);
+        
+                return to_route('words.index');
+            } else {
+                abort('403');
+            }
         }
+        
 
-        $request->validate([
-            'word'=>['required'],
-            'info' => ['nullable']
-        ]);
-
-        Word::create([
-            'word' => $request->input('word'),
-            'info' => $request->input('info'),
-            'show' => $show
-        ]);
-
-        $word_id = Word::orderBy('id', 'desc')->first()->id;
-        DB::insert('insert into word_user values (?, ?, ?)', [null, $word_id, $id]);
-
-        return to_route('words.index');
     }
 
     /**
@@ -71,7 +80,6 @@ class WordController extends Controller
      */
     public function show(Word $word)
     {
-
 
         if($word-> show == 1){
             $return = DB::table('word_sign')->where('word_id',$word->id)->get();
@@ -129,7 +137,7 @@ class WordController extends Controller
     {
         if(Auth::check()){
             if(Auth::user()->isAdmin){
-                $show = 1;
+                $show = 0;
                 if(!empty($request->input('show'))){
                     $show = 1;
                 }
@@ -159,7 +167,14 @@ class WordController extends Controller
      */
     public function destroy(Word $word)
     {
-        $word->delete();
-        return to_route('words.index');
+        if(Auth::check()){
+            if(Auth::user()->isAdmin){
+                $word->delete();
+                return to_route('words.index');
+            } else {
+                abort('403');
+            }
+        }
+        
     }
 }

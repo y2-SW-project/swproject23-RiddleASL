@@ -43,6 +43,21 @@ class SearchController extends Controller
                         }
                         return Response($output);
 
+                    } else{
+                        foreach ($words as $key => $word) {
+                            if($word->show == 1){
+                                $info = '';
+                                if(strlen($word->info) > 20){
+                                    $info = substr($word->info, 0,20).'...';
+                                } else{
+                                    $info = $word->info;
+                                }
+                                $output.='<tr>'.
+                                '<td> <a href='.route('words.show', $word->id).' class="text-white text-decoration-none fs-5">'.$word->word.'</a> <span class="text-bg-l fs-5"> - '.$info.'</span></td>'.
+                                '</tr>';
+                            } 
+                    }
+                    return Response($output);
                     }
                 } else {
                     foreach ($words as $key => $word) {

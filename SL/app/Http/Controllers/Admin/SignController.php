@@ -25,7 +25,15 @@ class SignController extends Controller
      */
     public function create(Request $request)
     {
-        return view('admin.signs.create', ['word'=>$request->word_id]);
+
+        if(Auth::check()){
+            if(Auth::user()->isAdmin){
+                return view('admin.signs.create', ['word'=>$request->word_id]);
+            } else {
+                abort('403');
+            }
+        }
+
     }
 
     /**
@@ -65,7 +73,15 @@ class SignController extends Controller
      */
     public function edit(Sign $sign)
     {
-        return view('admin.signs.edit', ['sign' => $sign]);
+        if(Auth::check()){
+            if(Auth::user()->isAdmin){
+                return view('admin.signs.edit', ['sign' => $sign]);
+            } else {
+                abort('403');
+            }
+        }
+
+
     }
 
     /**
@@ -91,7 +107,14 @@ class SignController extends Controller
      */
     public function destroy(Sign $sign)
     {
-        $sign->delete();
-        return redirect()->back();
+        if(Auth::check()){
+            if(Auth::user()->isAdmin){
+                $sign->delete();
+                return redirect()->back();
+            } else {
+                abort('403');
+            }
+        }
+
     }
 }

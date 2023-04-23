@@ -17,14 +17,14 @@
                     </table>
                 </div>
                 @if (Auth::check())
-            @if (auth()->user()->isAdmin)
-                    <div class="row">
-                        <div class="col-6 m-0 pt-3">
-                            <a href="{{ route('words.create') }}"><button class="btn btn-outline-bg-l fs-6 border border-3 border-bg-l"><i class="bi bi-plus-circle"></i> Add Word</button></a>
-                        </div>
-                    </div>
+                    @if (auth()->user()->isAdmin)
+                            <div class="row">
+                                <div class="col-6 m-0 pt-3">
+                                    <a href="{{ route('words.create') }}"><button class="btn btn-outline-bg-l fs-6 border border-3 border-bg-l"><i class="bi bi-plus-circle"></i> Add Word</button></a>
+                                </div>
+                            </div>
+                    @endif
                 @endif
-            @endif
             </div>
             <div class="col-7 rounded ps-2">
                 <div class="bg-bg-l p-1 rounded text-white" style='min-height: 30rem'>
@@ -105,7 +105,7 @@
                 url : '{{URL::to('search')}}',
                 data:{'search':$value},
                 success:function(data){
-                $('#wordBody').html(data);
+                    $('#wordBody').html(data);
                 }
             });
         });
