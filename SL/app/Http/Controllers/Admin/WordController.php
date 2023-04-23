@@ -86,8 +86,25 @@ class WordController extends Controller
     
             $signs = array_values($get);
             return view('admin.words.show', ['return' => $return, 'signs'=>$signs, 'word' => $word, 'user'=>$user[0]]);
-        } else {
-            abort('403');
+        } else if($word->show == 0){
+            if(Auth::check()){
+                if(auth()->user()->isAdmin){
+                    $return = DB::table('word_sign')->where('word_id',$word->id)->get();
+                    $get = [];
+            
+                    $user_id = DB::table('word_user')->where('word_id', $word->id)->pluck('user_id');
+                    $user = DB::table('users')->where('id', $user_id[0])->get();
+            
+                    foreach ($return as $item) {
+                        array_push($get, (DB::table('signs')->where('id',$item->sign_id)->get())[0]);
+                    }
+            
+                    $signs = array_values($get);
+                    return view('admin.words.show', ['return' => $return, 'signs'=>$signs, 'word' => $word, 'user'=>$user[0]]);
+                }
+            } else {
+                abort('403');
+            }
         }
     }
 
