@@ -37,11 +37,11 @@
                     <ul class="navbar-nav ms-auto gap-1 text-lite">
                         <!-- Authentication Links -->
                         <li>
-                            <button type="button" class="btn btn-outline-lite border border-lite text-white border-3  fnt-5 px-5 fw-bold">Login</button>
+                            <a href="{{ route('login') }}" type="button" class="btn btn-outline-lite border border-lite text-white border-3  fnt-5 px-5 fw-bold">Login</a>
                         </li>
                         <p class="fnt-4">•</p>
                         <li>
-                            <button type="button" class="btn btn-outline-lite border border-lite text-white border-3  fnt-5 px-4 fw-bold">Sign-up</button>
+                            <a href="{{ route('register') }}"><button type="button" class="btn btn-outline-lite border border-lite text-white border-3  fnt-5 px-4 fw-bold">Sign-up</button></a>
                         </li>
                         <p class="fnt-4">•</p>
                         <li>
